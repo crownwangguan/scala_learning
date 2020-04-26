@@ -25,3 +25,14 @@ def sum(ints: List[Int]): Int = ints match {
 ### Companion objects
 This is just an object with the same name as the data type where we put various convenience functions for creating or working with values of the data type.
 
+## Data Sharing
+We say that functional data structures are persistent, meaning that existing references are never changed by operations on the data structure.
+
+```
+def append[A](a1: List[A], a2: List[A]): List[A] = a1 match {
+    case Nil => a2
+    case Cons(h,t) => Cons(h, append(t, a2)) 
+}
+```
+Note that this definition only copies values until the first list is exhausted, so its runtime and memory usage are determined only by the length of a1. 
+The remaining list then just points to a2.
